@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 // middleware to enable CORS
 app.use(cors ({
-    origin : "http://localhost:5173",
+    origin : "https://task12-password-reset-front-end.netlify.app",
     credentials : true
 }))
 

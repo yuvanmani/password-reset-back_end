@@ -80,7 +80,7 @@ const authController = {
             await user.save();
 
             // create the reset link
-            const resetLink = `http://localhost:3001/api/v1/users/reset-password/${token}`;
+            const resetLink = `https://password-reset-back-end-cunz.onrender.com/api/v1/users/reset-password/${token}`;
 
             // send the link to the user via email
             sendEmail(user.email, "Password Reset", `<p>Click <a href="${resetLink}">here</a> to reset your password</p>`)
