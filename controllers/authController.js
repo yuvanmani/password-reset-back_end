@@ -102,7 +102,7 @@ const authController = {
 
             // check the input field is not empty
             if (!newPassword) {
-                return res.status(400).send("<h4>New password is required<h4>");
+                return res.status(400).send('<h4 style="color: blue; font-weight: bold; font-size:5vh; margin:40px;">New password is required</h4>');
             }
 
             // verify the token
@@ -116,7 +116,7 @@ const authController = {
 
             // check if the user is exist & token is valid
             if (!user || user.resetTokenExpiry < Date.now()) {
-                return res.status(400).send("<h4>Token expired or invalid user<h4>");
+                return res.status(400).send('<h4 style="color: blue; font-weight: bold; font-size:5vh; margin:40px;">Token expired or invalid user</h4>');
             }
 
             // save the new password & clear the reset token details in database
@@ -126,11 +126,11 @@ const authController = {
 
             await user.save();
 
-            res.status(500).send("<h4>Password reset successful. Close this window<h4>");
+            res.status(500).send('<h4 style="color: green; font-weight: bold; font-size:5vh; margin:40px;">Password reset successful. Close this window</h4>');
 
         }
         catch (error) {
-            return res.status(403).send("<h4>Forbidden<h4>");
+            return res.status(403).send('<h4 style="color: red; font-weight: bold; font-size:5vh; margin:40px;">Forbidden</h4>');
         }
     },
     openResetPassword: async (req, res) => {
@@ -149,12 +149,12 @@ const authController = {
 
             // check if the user is exist
             if (!user) {
-                return res.status(404).send("<h4>User not found<h4>");
+                return res.status(404).send('<h4 style="color: blue; font-weight: bold; font-size:5vh; margin:40px;">User not found</h4>');
             }
 
             // check if the token is valid
             if (user.resetTokenExpiry < Date.now()) {
-                return res.status(400).send("<h4>Token expired<h4>");
+                return res.status(400).send('<h4 style="color: blue; font-weight: bold; font-size:5vh; margin:40px;">Token expired</h4>');
             }
 
             res.send(`
@@ -163,14 +163,18 @@ const authController = {
                   <html>
                         <head>
                            <title>Reset Password</title>
+                           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                           <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
                         </head>
 
                       <body>
-                          <h1>Reset your password</h1>
+                      <div class="bg-gray-50 px-2 py-4 m-1 border-blue-400 border-2 rounded-md xl:w-3/5 xl:mt-10 xl:ml-80">
+                          <h1 class="m-2 mt-4 text-center text-xl font-bold bg-slate-200 text-blue-700 rounded-lg py-1 italic">Reset your password</h1>
                           <form action ="/api/v1/users/reset-password/${token}" method="POST">
-                             <input type="password" name="newPassword" placeholder="Enter new password" required autocomplete="off"/>
-                             <button type="submit">Submit</button>
+                             <input class="border-1 w-5/6 py-1 m-2 ml-8 outline-blue-400 hover:outline-red-400 rounded-lg" type="password" name="newPassword" placeholder="Enter new password" required autocomplete="off"/>
+                             <button class="w-5/6 py-1 m-2 ml-8 bg-cyan-300 hover:bg-cyan-500 text-xl font-bold italic text-purple-900 rounded-lg" type="submit">Submit</button>
                           </form>
+                      </div>
                       </body>
 
                      <script>
@@ -181,7 +185,7 @@ const authController = {
     `);
         }
         catch (error) {
-            return res.status(403).send("<h4>Forbidden<h4>");
+            return res.status(403).send('<h4 style="color: red; font-weight: bold; font-size:5vh; margin:40px;">Forbidden</h4>');
         }
     }
 }
